@@ -11,9 +11,12 @@ export default function Hero() {
         <p className="text-gray-600 mb-6 text-sm sm:text-base">
           Start your AI-powered IQ test and receive a smart certificate!
         </p>
-        <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition duration-200">
+        <a href="/signup"  >
+          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition duration-200">
           Start Test
-        </button>
+          </button>
+        </a>
+        
       </div>
     </div>
   );

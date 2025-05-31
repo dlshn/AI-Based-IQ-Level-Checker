@@ -13,8 +13,8 @@ export default function Navbar() {
         <ul className="hidden md:flex space-x-8">
           <li><a href="/" className="hover:text-gray-300">Home</a></li>
           <li><a href="/about" className="hover:text-gray-300">About</a></li>
-          <li><a href="#" className="hover:text-gray-300">Services</a></li>
-          <li><a href="#" className="hover:text-gray-300">Contact</a></li>
+          <li><a href="/service" className="hover:text-gray-300">Services</a></li>
+          <li><a href="/" className="hover:text-gray-300">Contact</a></li>
         </ul>
 
         {/* Mobile Toggle Button */}
@@ -29,9 +29,9 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <ul className="md:hidden mt-4 space-y-2 text-center">
-          <li><a href="#" className="block hover:text-gray-300">Home</a></li>
-          <li><a href="#" className="block hover:text-gray-300">About</a></li>
-          <li><a href="#" className="block hover:text-gray-300">Services</a></li>
+          <li><a href="/" className="block hover:text-gray-300">Home</a></li>
+          <li><a href="/about" className="block hover:text-gray-300">About</a></li>
+          <li><a href="/service" className="block hover:text-gray-300">Services</a></li>
           <li><a href="#" className="block hover:text-gray-300">Contact</a></li>
         </ul>
       )}
