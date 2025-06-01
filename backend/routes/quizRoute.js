@@ -5,6 +5,6 @@ import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
 router.post("/start", verifyToken, startQuiz); 
-router.put("/submit/:id", verifyToken, submitQuiz);
+router.post("/submit/:id", verifyToken, submitQuiz);
 
 export default router;
