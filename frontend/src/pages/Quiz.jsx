@@ -1,38 +1,36 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Quiz() {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [msg, setMsg] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [quizId,setQuizId]=useState("");
-  const [score,setScore]=useState();
+  const [quizId, setQuizId] = useState("");
+  const [score, setScore] = useState();
+  const [instructions, setInstructions] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuestions = async () => {
-        try {
+      try {
         const token = localStorage.getItem('token');
         const res = await axios.post(
-            'http://localhost:5000/api/quiz/start',
-            {}, // No body data needed here
-            {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            }
+          'http://localhost:5000/api/quiz/start',
+          {},
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         setQuestions(res.data.questions);
         setQuizId(res.data._id);
-        } catch (error) {
+      } catch (error) {
         setMsg("Failed to load quiz.");
         console.error(error.response?.data?.msg || error.message);
-        }
+      }
     };
 
     fetchQuestions();
-    }, []);
-
+  }, []);
 
   const handleAnswerChange = (questionIndex, choiceIndex) => {
     setAnswers({ ...answers, [questionIndex]: choiceIndex });
@@ -41,17 +39,15 @@ export default function Quiz() {
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem('token');
-
       const answersArray = Object.keys(answers)
-      .sort((a, b) => a - b)
-      .map(key => answers[key]);   // That make ordered answers array without index values
+        .sort((a, b) => a - b)
+        .map(key => answers[key]);
 
       const res = await axios.post(
         `http://localhost:5000/api/quiz/submit/${quizId}`,
-        { providedAnswers:answersArray }, // Send provided answers
+        { providedAnswers: answersArray },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setMsg("Quiz submitted successfully!");
       setScore(res.data.score);
       setSubmitted(true);
     } catch (err) {
@@ -59,10 +55,33 @@ export default function Quiz() {
     }
   };
 
+  const getInstructionsAndNavigate = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await axios.post(
+        `http://localhost:5000/api/quiz/instruction/${score}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      const instructionText = res.data.instruction;
+      setInstructions(instructionText);
+
+      // Navigate to result page and pass data via state
+      navigate("/result", {
+        state: {
+          score,
+          instruction: instructionText
+        }
+      });
+    } catch (err) {
+      console.error("Failed to get instructions", err);
+    }
+  };
+
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">IQ Quiz</h1>
-      
+
       {!submitted && questions.length > 0 ? (
         <>
           {questions.map((q, idx) => (
@@ -95,7 +114,26 @@ export default function Quiz() {
           </button>
         </>
       ) : submitted ? (
-        <p>Thank you! Your answers have been submitted. score:{score}</p>
+        <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
+          <div className="bg-green-100 border border-green-400 text-green-800 px-6 py-8 rounded-2xl shadow-lg text-center w-full max-w-md">
+            <h2 className="text-2xl font-bold mb-3">🎉 Quiz Submitted Successfully!</h2>
+            
+            <h3 className="text-lg font-semibold mb-1">Score: <span className="text-indigo-700">{score}</span></h3>
+            <p className="text-base mb-5 text-gray-700">Click below to view AI-generated improvement tips.</p>
+
+            <button
+              onClick={getInstructionsAndNavigate}
+              className="bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 text-white font-medium rounded-lg text-sm px-5 py-2.5 transition-all duration-200"
+            >
+              View AI Feedback
+            </button>
+
+            <p className="mt-6 text-sm text-gray-600">
+              Thank you for participating in the IQ quiz.
+            </p>
+          </div>
+        </div>
+
       ) : (
         <p>Loading questions...</p>
       )}

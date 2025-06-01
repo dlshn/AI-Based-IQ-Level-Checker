@@ -6,7 +6,7 @@ import Service from './pages/Service'
 import Signup from './pages/SignUp'
 import Signin from './pages/SignIn'
 import Quiz from './pages/Quiz'
-// import Result from './pages/Result'
+import Final from './pages/Final'
 
 function App() {
   return (
@@ -19,7 +19,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/quiz" element={<Quiz />} />
-        {/* <Route path="/result" element={<Result />} />  */}
+        <Route path="/result" element={<Final />} />
+
       </Routes>
     </Router>
   )

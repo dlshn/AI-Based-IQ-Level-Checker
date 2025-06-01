@@ -1,5 +1,6 @@
 import Quiz from "../models/Quiz.js";
 import { generateIQQuestions } from "../utils/generateQuiz.js";
+import { generateGeminiInstruction } from "../utils/getInstructions.js";
 
 export const startQuiz = async (req, res) => {
   try {
@@ -42,5 +43,17 @@ export const submitQuiz = async (req, res) => {
     res.status(200).json({ msg: "Quiz submitted", score });
   } catch (err) {
     res.status(500).json({ msg: "Submission failed", error: err.message });
+  }
+};
+
+export const getInstructions = async (req, res) => {
+  const { score } = req.params;
+
+  try {
+    const instruction = await generateGeminiInstruction(score);
+    res.status(200).json({ instruction });
+  } catch (err) {
+    console.error("Gemini error:", err.message);
+    res.status(500).json({ msg: "Failed to fetch instruction", error: err.message });
   }
 };
