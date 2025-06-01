@@ -22,21 +22,24 @@ export default function Signin() {
       console.log(res.data);
 
       const token = res.data.token;
-      console.log(token);
 
-      navigate('/'); // Redirect after login
-    } catch (err) {
-      if (err.response) {
-        setMsg(err.response.data.msg || "Login failed.");
-      } else if (err.request) {
-        setMsg("No response from server.");
-      } else {
-        setMsg("Error: " + err.message);
-      }
-    } finally {
-      setFormData({ email: '', password: '' });
+      // Save token to local storage
+      localStorage.setItem("token", token);
+
+      navigate('/quiz');
     }
-  };
+    catch (err) {
+          if (err.response) {
+            setMsg(err.response.data.msg || "Login failed.");
+          } else if (err.request) {
+            setMsg("No response from server.");
+          } else {
+            setMsg("Error: " + err.message);
+          }
+        } finally {
+          setFormData({ email: '', password: '' });
+        }
+      };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-900 to-gray-700 flex items-center justify-center px-4 py-12">

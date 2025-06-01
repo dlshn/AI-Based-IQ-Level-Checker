@@ -1,8 +1,9 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/auth.js";
+import quizRoute from "./routes/quizRoute.js";
 
 
 
@@ -14,11 +15,9 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
+connectDB();
 
-// Connect MongoDB
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
-.catch((error) => console.log(error.message));
+
 
 // Basic route
 app.get('/', (req, res) => {
@@ -26,3 +25,5 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use("/api/quiz", quizRoute);
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
