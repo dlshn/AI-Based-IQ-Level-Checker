@@ -26,7 +26,7 @@ export default function Signin() {
       // Save token to local storage
       localStorage.setItem("token", token);
 
-      navigate('/quiz');
+      navigate('/');
     }
     catch (err) {
           if (err.response) {

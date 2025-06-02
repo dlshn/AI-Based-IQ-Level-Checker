@@ -9,7 +9,6 @@ export default function Quiz() {
   const [submitted, setSubmitted] = useState(false);
   const [quizId, setQuizId] = useState("");
   const [score, setScore] = useState();
-  const [instructions, setInstructions] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,7 +63,6 @@ export default function Quiz() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const instructionText = res.data.instruction;
-      setInstructions(instructionText);
 
       // Navigate to result page and pass data via state
       navigate("/result", {
