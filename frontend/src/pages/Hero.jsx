@@ -57,12 +57,15 @@ export default function Hero() {
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
                 placeholder="Enter your age"
+                min={6}
+                max={100}
                 className="border border-gray-300 rounded px-4 py-2 w-full sm:w-1/2 focus:outline-none focus:ring-2 focus:ring-lime-400"
               />
+
               <Link
                 to={age ? `/quiz/${age}` : "/"}
                 className={`${
-                  age ? "bg-green-600 hover:bg-green-700" : "bg-gray-400 cursor-not-allowed"
+                  age ? "bg-lime-400 hover:bg-lime-700" : "bg-gray-400 cursor-not-allowed"
                 } text-white px-6 py-2 rounded transition duration-200 text-center`}
               >
                 Start Test

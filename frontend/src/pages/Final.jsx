@@ -17,13 +17,13 @@ export default function ResultPage() {
       {/* Logout button */}
       <button
         onClick={handleLogout}
-        className="fixed top-15 right-6 z-20 bg-red-400 hover:bg-red-700 text-white px-4 py-2 rounded-md transition shadow-lg"
+        className=" top-15 right-6 z-20 bg-red-400 hover:bg-red-700 text-white px-4 py-2 rounded-md transition shadow-lg"
       >
         Logout
       </button>
 
 
-      <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-sm shadow-2xl rounded-2xl p-6 sm:p-10 text-white border border-gray-600 mt-12">
+      <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-sm shadow-2xl rounded-2xl p-6 sm:p-10 text-white border border-gray-600 mt-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold mb-4 text-center">
           🧠 Your Result
         </h1>

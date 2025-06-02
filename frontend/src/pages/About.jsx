@@ -7,16 +7,19 @@ export default function AboutUs() {
         </h1>
 
         <h3 className="text-lg leading-relaxed mb-4">
-          <strong className="text-lime-700">IQ Insight</strong> is an AI-enhanced platform created to help you explore and understand your cognitive strengths through an engaging IQ test experience.
-        </h3>
+  <strong className="text-lime-700">IQ Insight</strong> is a free platform that uses AI to help you understand your IQ level through a quick and smart test.
+</h3>
 
-        <h3 className="text-lg leading-relaxed mb-4">
-          Powered by cutting-edge AI from Google's Gemini API, we generate adaptive and insightful questions that test your logic, pattern recognition, and reasoning skills — all in just a few minutes.
-        </h3>
+<h3 className="text-lg leading-relaxed mb-4">
+  The test gives questions that match your age and check your problem-solving and thinking skills.
+</h3>
 
-        <h3 className="text-lg leading-relaxed">
-          Whether you're preparing for exams, curious about your mental sharpness, or simply want to challenge yourself, <span className="text-lime-700 font-semibold">IQ Insight</span> provides a fast, fun, and free way to rehearse your IQ potential.
-        </h3>
+<h3 className="text-lg leading-relaxed">
+  After finishing, you’ll receive AI-generated tips to help improve your skills. <span className="text-lime-700 font-semibold">IQ Insight</span> is an easy and free way to explore your intelligence.
+</h3>
+
+
+
       </div>
     </div>
   );

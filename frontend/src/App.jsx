@@ -8,6 +8,7 @@ import Signin from './pages/SignIn'
 import Quiz from './pages/Quiz'
 import Final from './pages/Final'
 import Contact from './pages/Contact'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/result" element={<Final />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <Footer/>
     </Router>
   )
 }

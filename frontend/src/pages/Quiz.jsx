@@ -189,35 +189,46 @@ export default function Quiz() {
             </>
           </div>
           ) : submitted ? (
-        <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
-          <div className="bg-green-100 border border-green-400 text-green-800 px-6 py-8 rounded-2xl shadow-lg text-center w-full max-w-md">
-            <h2 className="text-2xl font-bold mb-3">🎉 Quiz Submitted Successfully!</h2>
-            
-            <h3 className="text-lg font-semibold mb-1">Score: <span className="text-indigo-700">{score}</span></h3>
-            <p className="text-base mb-5 text-gray-700">Click below to view AI-generated improvement tips.</p>
+        <div className="flex justify-center min-h-screen px-4 py-2 ">
+          <div className="bg-white border border-green-300 text-green-900 px-8 py-10 rounded-2xl shadow-2xl text-center w-full max-w-md transition-all duration-300 h-1/2 mt-5 md:mt-10">
+            <h2 className="text-3xl font-extrabold mb-4 text-green-700">Quiz Completed!🎉</h2>
+
+            <h3 className="text-xl font-semibold mb-2">
+              Your Score: <span className="text-indigo-700">{score}</span>
+            </h3>
+
+            <p className="text-base mb-6 text-gray-700">
+              Great job! Want to know how you can improve even more? Let AI guide you!
+            </p>
 
             <button
               onClick={getInstructionsAndNavigate}
-              className="bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 text-white font-medium rounded-lg text-sm px-5 py-2.5 transition-all duration-200"
+              className="bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 text-white font-semibold rounded-lg text-sm px-6 py-3 transition-all duration-200"
             >
-              View AI Feedback
+              📈 View AI Feedback
             </button>
 
-            <p className="mt-6 text-sm text-gray-600">
-              Thank you for participating in the IQ quiz.
+            <p className="mt-8 text-sm text-gray-500">
+              Thank you for participating in our AI-Based IQ Quiz. Keep learning and growing! 🎉
             </p>
           </div>
         </div>
+
       ) : (
-        <div className="flex flex-col items-center justify-center min-h-[250px] text-center space-y-4">
+        <div className="flex flex-col items-center justify-center min-h-[250px] text-center space-y-4 p-5">
           {/* Spinner */}
           <div className="w-10 h-10 border-4 border-blue-500 border-t-white rounded-full animate-spin"></div>
 
           {/* Title */}
-          <h2 className="text-xl font-bold text-white">Get Ready for Your IQ Quiz!</h2>
+          <h2 className="text-xl font-bold text-white">
+            Get Ready for Your IQ Quiz!
+          </h2>
 
           {/* Description */}
           <p className="text-base text-gray-200">
+            🧠 AI is generating questions specially designed for a{" "}
+            <span className="font-semibold text-yellow-300">{age}-year-old</span> user.
+            <br />
             🕒 You will have <span className="font-semibold text-yellow-300">3 minutes</span> to complete the quiz.
             After that, it will automatically close.
           </p>
@@ -225,6 +236,7 @@ export default function Quiz() {
           {/* Encouragement */}
           <p className="font-medium text-green-400">✅ Ready? Let’s go! You’re doing great!</p>
         </div>
+
 
 
       )}

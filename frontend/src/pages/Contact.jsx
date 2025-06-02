@@ -86,7 +86,7 @@ const Contact = () => {
             name="message"
             value={formData.message}
             onChange={handleChange}
-            placeholder="Your Message"
+            placeholder="Your Message, Feedback, etc."
             rows="4"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-lime-400"
             required
