@@ -9,7 +9,7 @@ export default function Quiz() {
   const [submitted, setSubmitted] = useState(false);
   const [quizId, setQuizId] = useState("");
   const [score, setScore] = useState();
-  const [timeLeft, setTimeLeft] = useState(200); 
+  const [timeLeft, setTimeLeft] = useState(180); 
   const [timeUp, setTimeUp] = useState(false);
   const navigate = useNavigate();
   const { age } = useParams();

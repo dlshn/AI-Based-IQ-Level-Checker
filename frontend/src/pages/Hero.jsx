@@ -45,27 +45,29 @@ export default function Hero() {
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
           Smart IQ Test
         </h1>
-        <p className="text-gray-600 mb-6 text-sm sm:text-base">
+        <p className="text-gray-600 md:mb-6 text-sm sm:text-base">
           Start your free <b>AI-powered</b> IQ test rehearsal and get personalized AI guidance in minutes!
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-2">
           {signed ? (
             <>
-              <input
+              <label htmlFor="" className="mt-0"><span className="font-bold text-lime-700">Age:</span>{" "}
+                <input
                 type="number"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
-                placeholder="Enter your age"
+                placeholder="Age.."
                 min={6}
                 max={100}
                 className="border border-gray-300 rounded px-4 py-2 w-full sm:w-1/2 focus:outline-none focus:ring-2 focus:ring-lime-400"
               />
+              </label>
 
               <Link
                 to={age ? `/quiz/${age}` : "/"}
                 className={`${
-                  age ? "bg-lime-400 hover:bg-lime-700" : "bg-gray-400 cursor-not-allowed"
+                  age ? "bg-lime-700 hover:bg-lime-400" : "bg-gray-400 cursor-not-allowed"
                 } text-white px-6 py-2 rounded transition duration-200 text-center`}
               >
                 Start Test
