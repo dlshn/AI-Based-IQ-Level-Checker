@@ -37,7 +37,7 @@ export default function Hero() {
       </div>
       <div className="bg-white p-6 sm:p-10 rounded-lg shadow-xl text-center w-full max-w-md">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
-          Welcome to IQ Checker
+          Smart IQ Test
         </h1>
         <p className="text-gray-600 mb-6 text-sm sm:text-base">
           Start your AI-powered IQ test and receive a smart certificate!
@@ -57,7 +57,7 @@ export default function Hero() {
             <>
               {/* If NOT signed in, show SignUp and Signin */}
               <a href="/signup">
-                <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition duration-200">
+                <button className="bg-lime-400 text-white px-6 py-2 rounded hover:bg-blue-700 transition duration-200">
                   Sign Up
                 </button>
               </a>

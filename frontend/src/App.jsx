@@ -7,6 +7,7 @@ import Signup from './pages/SignUp'
 import Signin from './pages/SignIn'
 import Quiz from './pages/Quiz'
 import Final from './pages/Final'
+import Contact from './pages/Contact'
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/result" element={<Final />} />
-
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
   )

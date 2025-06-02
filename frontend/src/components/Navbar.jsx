@@ -14,7 +14,7 @@ export default function Navbar() {
           <li><a href="/" className="hover:text-gray-300">Home</a></li>
           <li><a href="/about" className="hover:text-gray-300">About</a></li>
           <li><a href="/service" className="hover:text-gray-300">Services</a></li>
-          <li><a href="/" className="hover:text-gray-300">Contact</a></li>
+          <li><a href="/contact" className="hover:text-gray-300">Contact</a></li>
         </ul>
 
         {/* Mobile Toggle Button */}
