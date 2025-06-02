@@ -5,24 +5,25 @@ dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-export const generateIQQuestions = async () => {
+export const generateIQQuestions = async (age) => {
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  const prompt = `
-Generate 10 multiple choice IQ questions. 
-Each should have a question, 4 choices, and the correct answer index (0-3). 
-Return ONLY the JSON array (no explanation, no markdown formatting).
-Example format:
-[
-  {
-    "question": "What is 2 + 2?",
-    "choices": ["1", "2", "4", "3"],
-    "correctAnswerIndex": 2
-  }
-]
-`;
+  const prompt = (age) => `
+  Generate 10 multiple choice IQ questions suitable for a person who is ${age} years old.
+  Each should have a question, 4 choices, and the correct answer index (0-3). 
+  Return ONLY the JSON array (no explanation, no markdown formatting).
+  Example format:
+  [
+    {
+      "question": "What is 2 + 2?",
+      "choices": ["1", "2", "4", "3"],
+      "correctAnswerIndex": 2
+    }
+  ]
+  `;
 
-  const result = await model.generateContent(prompt);
+
+  const result = await model.generateContent(prompt(age)); 
   const response = await result.response.text();
 
   // Strip out triple backticks if present 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function Quiz() {
   const [questions, setQuestions] = useState([]);
@@ -12,6 +12,7 @@ export default function Quiz() {
   const [timeLeft, setTimeLeft] = useState(200); 
   const [timeUp, setTimeUp] = useState(false);
   const navigate = useNavigate();
+  const { age } = useParams();
 
   // Fetch quiz questions
   useEffect(() => {
@@ -19,7 +20,7 @@ export default function Quiz() {
       try {
         const token = localStorage.getItem('token');
         const res = await axios.post(
-          'http://localhost:5000/api/quiz/start',
+          `http://localhost:5000/api/quiz/start/${age}`,
           {},
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -103,8 +104,8 @@ export default function Quiz() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-900 to-gray-700 text-white p-6">
-      <h1 className="text-2xl font-bold mb-4">IQ Quiz</h1>
+    <div className="min-h-screen bg-gradient-to-r from-gray-900 to-gray-700 text-white py-5 md:py-10 md:px-40">
+      <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold mb-4 text-center">IQ Insight</h1>
 
       {!submitted && questions.length > 0 ? (<div className="min-h-screen bg-gradient-to-r from-gray-900 to-gray-700 p-6 text-white">
             <>
@@ -115,11 +116,11 @@ export default function Quiz() {
 
               {/* Time Up Message */}
               {timeUp && !submitted && (
-                <div className="flex items-center space-x-4 mt-6 mb-2">
+                <div className="flex items-center flex-col sm:flex-row gap-2 space-x-4 mt-6 mb-4">
                   <h4 className="text-red-400 font-semibold">❌ Time is up! The quiz is now closed.</h4>
                   <Link
                     to="/"
-                    className="bg-lime-400 text-gray-900 font-semibold px-4 py-2 rounded hover:bg-lime-700 transition-all duration-200"
+                    className="bg-lime-400 text-gray-900 font-semibold text-sm md:text-base px-2 md:px-4 py-2 rounded hover:bg-lime-700 transition-all duration-200"
                     onClick={() => localStorage.removeItem('token')}
                   >
                     Try Again
@@ -130,7 +131,7 @@ export default function Quiz() {
               {/* Questions */}
               {questions.map((q, idx) => (
                 <div key={idx} className="mb-6 p-4 bg-white rounded-lg shadow text-gray-900">
-                  <p className="font-semibold text-lg mb-2">{idx + 1}. {q.question}</p>
+                  <p className="font-semibold text-base md:text-lg  mb-2">{idx + 1}. {q.question}</p>
                   <div className="space-y-2">
                     {q.choices.map((choice, choiceIdx) => (
                       <label
@@ -164,11 +165,11 @@ export default function Quiz() {
 
               {/* Final Time Up Message */}
               {timeUp && !submitted && (
-                <div className="flex items-center space-x-4 mt-6 mb-2">
+                <div className="flex items-center flex-col sm:flex-row gap-2 space-x-4 mt-6 mb-2">
                   <h4 className="text-red-400 font-semibold">❌ Time is up! The quiz is now closed.</h4>
                   <Link
                     to="/"
-                    className="bg-lime-400 text-gray-900 font-semibold px-4 py-2 rounded hover:bg-lime-700 transition-all duration-200"
+                    className="bg-lime-400 text-gray-900 font-semibold text-sm md:text-base px-2 md:px-4 py-2 rounded hover:bg-lime-700 transition-all duration-200"
                     onClick={() => localStorage.removeItem('token')}
                   >
                     Try Again

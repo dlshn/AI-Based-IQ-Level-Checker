@@ -10,6 +10,6 @@ export const verifyToken = (req, res, next) => {
     req.user = decoded; 
     next();
   } catch (err) {
-    res.status(403).json({ msg: "Invalid token" }); 
+    res.status(403).json({ msg: "Invalid token" });  
   }
 };

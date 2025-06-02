@@ -78,7 +78,7 @@ export default function Signin() {
           </div>
           <button
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition"
+            className="w-full bg-lime-400 hover:bg-lime-700 text-white font-semibold py-2 px-4 rounded-md transition"
           >
             Sign In
           </button>

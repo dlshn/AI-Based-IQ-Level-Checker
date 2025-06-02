@@ -38,50 +38,50 @@ export default function Signup() {
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="block text-gray-700 font-medium mb-1">
-              Name
+              Name *
             </label>
             <input
               name="name"
               value={formData.name}
               type="text"
               placeholder="Enter your name"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-700"
               required
               onChange={handleChange}
             />
           </div>
           <div>
             <label className="block text-gray-700 font-medium mb-1">
-              Email
+              Email *
             </label>
             <input
               name="email"
               value={formData.email}
               type="email"
               placeholder="Enter your email"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-700"
               required
               onChange={handleChange}
             />
           </div>
           <div>
             <label className="block text-gray-700 font-medium mb-1">
-              Password
+              Password *
             </label>
             <input
               name="password"
               value={formData.password}
               type="password"
               placeholder="Enter your password"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-700"
               required
               onChange={handleChange}
             />
           </div>
-          <small className="text-red-800 text-center font-bold mt-2">*{msg?msg:null}</small>
+          <small className="text-red-700 text-center font-bold mt-2">{msg?("*"+msg):null}</small>
           <button
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition"
+            className="w-full bg-lime-400 hover:bg-lime-700 text-white font-semibold py-2 px-4 rounded-md transition"
           >
             Sign Up
           </button>
