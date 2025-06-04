@@ -4,15 +4,18 @@ import { generateGeminiInstruction } from "../utils/getInstructions.js";
 
 export const startQuiz = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userEmail = req.user.email;
     const age = req.params.age;
     if (!age || isNaN(age)) {
       return res.status(400).json({ msg: "Valid age is required." });
     }
+    if(!userEmail){
+      return res.status(401).json({ msg: "User not authenticated" });
+    }
 
     const questions = await generateIQQuestions(age);
 
-    const quiz = new Quiz({ userId, questions });
+    const quiz = new Quiz({ email:userEmail, questions });
     await quiz.save();
 
     res.status(201).json(quiz);

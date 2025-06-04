@@ -26,17 +26,17 @@ export const signin = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user)
-      return res.status(400).json({ msg: 'Invalid credentials' });
+      return res.status(400).json({ msg: 'User Not Found!' });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
       return res.status(400).json({ msg: 'Invalid credentials' });
 
-    const token = jwt.sign({ id: user._id, name:user.name }, process.env.JWT_SECRET, {
+    const token = jwt.sign({name:user.name, email:user.email }, process.env.JWT_SECRET, {
       expiresIn: '2h',
     });
 
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    res.json({ token, user: {name: user.name, email: user.email } });
   } catch (err) {
     res.status(500).json({ msg: 'Server error', error: err.message });
   }

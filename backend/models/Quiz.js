@@ -8,7 +8,10 @@ const questionSchema = {
 };
 
 const quizSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  email: {
+    type: String,
+    required: true,
+  },
   questions: [questionSchema],
   providedAnswers: [Number], // Indexes of chosen answers
   score: Number,

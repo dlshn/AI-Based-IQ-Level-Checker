@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 
 export function SignInModal({ open, handleOpen }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -98,6 +99,11 @@ export function SignInModal({ open, handleOpen }) {
           >
             Sign In
           </button>
+          <GoogleLoginButton onSuccess={(user) => {
+            // Optionally store token, navigate, or show welcome
+            localStorage.setItem("token", user.accessToken); // Optional
+            console.log("Signed in as:", user.displayName);
+          }} />
         </form>
 
         {/* Sign Up Option */}
