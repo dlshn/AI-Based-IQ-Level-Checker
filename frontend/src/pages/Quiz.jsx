@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
+
 
 export default function Quiz() {
   const [questions, setQuestions] = useState([]);
@@ -13,9 +14,13 @@ export default function Quiz() {
   const [timeUp, setTimeUp] = useState(false);
   const navigate = useNavigate();
   const { age } = useParams();
+  const fetched = useRef(false);
 
   // Fetch quiz questions
   useEffect(() => {
+    if (fetched.current) return;
+    fetched.current = true;
+
     const fetchQuestions = async () => {
       try {
         const token = localStorage.getItem('token');
@@ -27,7 +32,7 @@ export default function Quiz() {
         setQuestions(res.data.questions);
         setQuizId(res.data._id);
       } catch (error) {
-        setMsg("Failed to load quiz.");
+        setMsg(error.response?.data?.msg);
         console.error(error.response?.data?.msg || error.message);
       }
     };
@@ -215,31 +220,41 @@ export default function Quiz() {
         </div>
 
       ) : (
-        <div className="flex flex-col items-center justify-center min-h-[250px] text-center space-y-4 p-5">
-          {/* Spinner */}
-          <div className="w-10 h-10 border-4 border-blue-500 border-t-white rounded-full animate-spin"></div>
+  <div className="flex flex-col items-center justify-center min-h-[250px] text-center space-y-4 p-5">
+    {/* Spinner */}
+    <div className="w-10 h-10 border-4 border-lime-500 border-t-white rounded-full animate-spin"></div>
 
-          {/* Title */}
-          <h2 className="text-xl font-bold text-white">
-            Get Ready for Your IQ Quiz!
-          </h2>
+    {/* Title */}
+    <h2 className="text-xl font-bold text-white">
+      Get Ready for Your IQ Quiz!
+    </h2>
 
-          {/* Description */}
-          <p className="text-base text-gray-200">
-            🧠 AI is generating questions specially designed for a{" "}
-            <span className="font-semibold text-yellow-300">{age}-year-old</span> user.
-            <br />
-            🕒 You will have <span className="font-semibold text-yellow-300">3 minutes</span> to complete the quiz.
-            After that, it will automatically close.
-          </p>
+    {/* Description */}
+    <p className="text-base text-gray-200">
+      🧠 AI is generating questions specially designed for a{" "}
+      <span className="font-semibold text-yellow-300">{age}-year-old</span> user.
+      <br />
+      🕒 You will have <span className="font-semibold text-yellow-300">3 minutes</span> to complete the quiz.
+      After that, it will automatically close.
+    </p>
 
-          {/* Encouragement */}
-          <p className="font-medium text-green-400">✅ Ready? Let’s go! You’re doing great!</p>
-        </div>
+    {/* Encouragement */}
+    <p className="font-medium text-lime-400">✅ Ready? Let’s go! You’re doing great!</p>
 
-
-
-      )}
+    {/* Error Message */}
+    {msg && (
+      <>
+        <p className="mb-2 text-red-400 font-medium">OOps...<br />{msg}</p>
+        <Link
+          to="/"
+          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+        >
+          Go to Home
+        </Link>
+      </>
+    )}
+  </div>
+)}
     </div>
   );
 }
