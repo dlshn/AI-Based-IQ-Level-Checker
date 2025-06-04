@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import {SignInModal} from "../components/SigninModel";
+import {SignInModal } from "../components/SigninModel";
+import { SignupModal } from "../components/SignupModel";
 
 export default function Hero() {
   const [signed, setSigned] = useState(false);
   const [age, setAge] = useState("");
   const navigate = useNavigate();
   const [openSignin, setOpenSignin]= useState(false);
+  const [openSignup, setOpenSignup] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -23,6 +25,7 @@ export default function Hero() {
   const handleSignin = ()=>{
     setOpenSignin(!openSignin);
   }
+  const handleSignupOpen = () => setOpenSignup(prev => !prev);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gradient-to-r from-gray-900 to-gray-700 relative">
@@ -80,11 +83,10 @@ export default function Hero() {
             </>
           ) : (
             <>
-              <a href="/signup">
-                <button className="bg-lime-400 text-white px-6 py-2 rounded hover:bg-lime-700 transition duration-200">
+                <button className="bg-lime-400 text-white px-6 py-2 rounded hover:bg-lime-700 transition duration-200" onClick={handleSignupOpen}>
                   Sign Up
                 </button>
-              </a>
+                <SignupModal open={openSignup} handleOpen={handleSignupOpen} />
               
                 <button className="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700 transition duration-200" onClick={handleSignin}>
                   Sign In

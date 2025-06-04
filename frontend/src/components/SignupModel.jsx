@@ -1,13 +1,14 @@
-import React,{useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-export default function Signup() {
-
+export function SignupModal({ open, handleOpen }) {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
-  const [msg,setMsg]=useState("");
+  const [msg, setMsg] = useState("");
 
-  const navigate = useNavigate();
+  useEffect(()=>{
+    setMsg("");
+  },[formData])
+  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,26 +16,34 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMsg("");
     try {
       const res = await axios.post("http://localhost:5000/api/auth/signup", formData);
-      console.log(res.data);
-      // navigate("/signin")
-      
-    } catch (err) {
-      console.log(err);
-      setMsg(err.response?.data?.msg || "Register Failed..");
-    }finally{
+      setMsg("Signup successful! You can now sign in.");
       setFormData({ name: "", email: "", password: "" });
-      
+      handleOpen(false);
+
+    } catch (err) {
+      setMsg(err.response?.data?.msg || "Registration failed.");
     }
   };
 
+  if (!open) return null;
+
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-900 to-gray-700 flex items-center justify-center px-4 py-12">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+    <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md relative">
+        <button
+          onClick={() => handleOpen(false)}
+          className="absolute top-4 right-5 text-gray-600 hover:text-gray-900 text-2xl font-bold"
+          aria-label="Close signup modal"
+        >
+          ×
+        </button>
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Create an Account
         </h2>
+
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="block text-gray-700 font-medium mb-1">
@@ -50,6 +59,7 @@ export default function Signup() {
               onChange={handleChange}
             />
           </div>
+
           <div>
             <label className="block text-gray-700 font-medium mb-1">
               Email *
@@ -64,6 +74,7 @@ export default function Signup() {
               onChange={handleChange}
             />
           </div>
+
           <div>
             <label className="block text-gray-700 font-medium mb-1">
               Password *
@@ -78,16 +89,38 @@ export default function Signup() {
               onChange={handleChange}
             />
           </div>
-          <small className="text-red-700 text-center font-bold mt-2">{msg?("*"+msg):null}</small>
+
+          {msg && (
+            <p
+              className={`text-center font-semibold ${
+                msg.toLowerCase().includes("successful")
+                  ? "text-green-600"
+                  : "text-red-600"
+              }`}
+            >
+              {msg}
+            </p>
+          )}
+
           <button
             type="submit"
-            className="w-full bg-lime-400 hover:bg-lime-700 text-white font-semibold py-2 px-4 rounded-md transition"
+            className="w-full bg-lime-400 hover:bg-lime-700 text-white font-semibold py-2 rounded-md transition"
           >
             Sign Up
           </button>
-          <div className="flex gap-2">
-            <h5>Already have an account?</h5><a href="/" className="text-blue-700 font-bold hover:opacity-20">Signin</a>
-          </div>
+
+          <p className="text-center mt-4 text-gray-600 text-sm">
+            Already have an account?{" "}
+            <span
+              className="text-blue-600 cursor-pointer hover:underline"
+              onClick={() => {
+                handleOpen(false);
+                // If you want, you could trigger opening SignInModal here
+              }}
+            >
+              Sign In
+            </span>
+          </p>
         </form>
       </div>
     </div>
