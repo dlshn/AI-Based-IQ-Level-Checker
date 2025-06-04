@@ -6,6 +6,7 @@ import { SignupModal } from "../components/SignupModel";
 export default function Hero() {
   const [signed, setSigned] = useState(false);
   const [age, setAge] = useState("");
+  const [country,setCountry]= useState("");
   const navigate = useNavigate();
   const [openSignin, setOpenSignin]= useState(false);
   const [openSignup, setOpenSignup] = useState(false);
@@ -19,6 +20,9 @@ export default function Hero() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("photoURL");
+    localStorage.removeItem("displayName");
+    window.location.reload();
     setSigned(false);
     navigate("/");
   };
@@ -34,7 +38,7 @@ export default function Hero() {
       {signed && (
         <button
           onClick={handleLogout}
-          className="absolute top-6 right-6 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition"
+          className="absolute top-6 right-6 bg-red-600 hover:bg-red-700 text-sm md:text-lg text-white px-4 py-2 rounded-md transition"
         >
           Logout
         </button>
@@ -57,43 +61,72 @@ export default function Hero() {
           Start your free <b>AI-powered</b> IQ test rehearsal and get personalized AI guidance in minutes!
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-2">
+        <div className="flex flex-col sm:flex-row gap-2 items-center justify-center mt-2">
           {signed ? (
-            <>
-              <label htmlFor="" className="mt-0"><span className="font-bold text-lime-700">Age:</span>{" "}
+            <div className="flex flex-col gap-4 w-full">
+              {/* Age input */}
+              <div className="flex flex-col sm:flex-row items-center gap-2">
+                <label className="font-semibold text-lime-700 w-full sm:w-1/3 text-left">Age:</label>
                 <input
-                type="number"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-                placeholder="Age.."
-                min={6}
-                max={100}
-                className="border border-gray-300 rounded px-4 py-2 w-full sm:w-1/2 focus:outline-none focus:ring-2 focus:ring-lime-400"
-              />
-              </label>
+                  type="number"
+                  value={age}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val >= 0 && val <= 100) setAge(val);
+                  }}
+                  placeholder="Enter your age"
+                  className="border border-gray-300 rounded px-4 py-2 w-full sm:w-2/3 focus:outline-none focus:ring-2 focus:ring-lime-400"
+                />
+              </div>
 
-              <Link
-                to={age ? `/quiz/${age}` : "/"}
-                className={`${
-                  age ? "bg-lime-700 hover:bg-lime-400" : "bg-gray-400 cursor-not-allowed"
-                } text-white px-6 py-2 rounded transition duration-200 text-center`}
-              >
-                Start Test
-              </Link>
-            </>
+              {/* Country input */}
+              <div className="flex flex-col sm:flex-row items-center gap-2">
+                <label className="font-semibold text-lime-700 w-full sm:w-1/3 text-left">Country:</label>
+                <input
+                  type="text"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value.trimStart())}
+                  placeholder="Enter your country"
+                  className="border border-gray-300 rounded px-4 py-2 w-full sm:w-2/3 focus:outline-none focus:ring-2 focus:ring-lime-400"
+                />
+              </div>
+
+              {/* Start button */}
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={() => {
+                    if (age && country) {
+                      navigate(`/quiz/`, { state: { country, age } });
+                    }
+                  }}
+                  className={`${
+                    age && country ? "bg-lime-400 hover:bg-lime-700" : "bg-gray-400 cursor-not-allowed"
+                  } text-white px-6 py-2 rounded transition duration-200 w-full sm:w-1/2`}
+                >
+                  Start Test
+                </button>
+              </div>
+            </div>
           ) : (
-            <>
-                <button className="bg-lime-400 text-white px-6 py-2 rounded hover:bg-lime-700 transition duration-200" onClick={handleSignupOpen}>
-                  Sign Up
-                </button>
-                <SignupModal open={openSignup} handleOpen={handleSignupOpen} />
-              
-                <button className="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700 transition duration-200" onClick={handleSignin}>
-                  Sign In
-                </button>
-                <SignInModal open={openSignin} handleOpen={handleSignin} />
-            </>
+            <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center mt-4">
+              <button
+                className="bg-lime-400 text-white px-6 py-2 rounded hover:bg-lime-700 transition duration-200 w-full sm:w-auto"
+                onClick={handleSignupOpen}
+              >
+                Sign Up
+              </button>
+              <SignupModal open={openSignup} handleOpen={handleSignupOpen} />
+
+              <button
+                className="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700 transition duration-200 w-full sm:w-auto"
+                onClick={handleSignin}
+              >
+                Sign In
+              </button>
+              <SignInModal open={openSignin} handleOpen={handleSignin} />
+            </div>
           )}
+
         </div>
       </div>
     </div>

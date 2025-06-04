@@ -7,8 +7,12 @@ export default function ResultPage() {
   const { score, instruction } = location.state || {};
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/');
+    localStorage.removeItem("token");
+    localStorage.removeItem("photoURL");
+    localStorage.removeItem("displayName");
+    window.location.reload();
+    setSigned(false);
+    navigate("/");
   };
 
   return (

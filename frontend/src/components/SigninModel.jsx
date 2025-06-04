@@ -101,8 +101,14 @@ export function SignInModal({ open, handleOpen }) {
           </button>
           <GoogleLoginButton onSuccess={(user) => {
             // Optionally store token, navigate, or show welcome
-            localStorage.setItem("token", user.accessToken); // Optional
+            localStorage.setItem("token", user.accessToken);
+            localStorage.setItem("photoURL", user.photoURL); // ✅ Save profile picture URL
+            localStorage.setItem("displayName", user.displayName); // Optional: Save name too // Optional
+            window.location.reload();
             console.log("Signed in as:", user.displayName);
+            if(user){
+              handleOpen(false)
+            }
           }} />
         </form>
 

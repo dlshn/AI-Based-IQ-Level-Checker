@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 
 
 export default function Quiz() {
@@ -13,8 +13,9 @@ export default function Quiz() {
   const [timeLeft, setTimeLeft] = useState(180); 
   const [timeUp, setTimeUp] = useState(false);
   const navigate = useNavigate();
-  const { age } = useParams();
   const fetched = useRef(false);
+  const location = useLocation();
+  const { age, country } = location.state || {};
 
   // Fetch quiz questions
   useEffect(() => {
@@ -25,8 +26,8 @@ export default function Quiz() {
       try {
         const token = localStorage.getItem('token');
         const res = await axios.post(
-          `http://localhost:5000/api/quiz/start/${age}`,
-          {},
+          `http://localhost:5000/api/quiz/start/`,
+          {age, country},
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setQuestions(res.data.questions);
