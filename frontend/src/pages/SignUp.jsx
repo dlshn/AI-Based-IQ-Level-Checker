@@ -18,7 +18,7 @@ export default function Signup() {
     try {
       const res = await axios.post("http://localhost:5000/api/auth/signup", formData);
       console.log(res.data);
-      navigate("/signin")
+      // navigate("/signin")
       
     } catch (err) {
       console.log(err);
@@ -86,7 +86,7 @@ export default function Signup() {
             Sign Up
           </button>
           <div className="flex gap-2">
-            <h5>Already have an account?</h5><a href="/signin" className="text-blue-700 font-bold hover:opacity-20">Signin</a>
+            <h5>Already have an account?</h5><a href="/" className="text-blue-700 font-bold hover:opacity-20">Signin</a>
           </div>
         </form>
       </div>
