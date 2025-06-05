@@ -30,7 +30,7 @@ export default function ResultPage() {
       {/* Logout Button - Top Left */}
       <button
         onClick={handleLogout}
-        className="absolute top-6 left-6 z-20 bg-black text-lime-400 hover:text-white border-2 border-lime-400 hover:bg-lime-400 px-5 py-2 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+        className="absolute top-6 left-6 z-20 bg-black text-lime-400 hover:text-white border-2 border-red-700 hover:bg-red-400 px-5 py-2 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />

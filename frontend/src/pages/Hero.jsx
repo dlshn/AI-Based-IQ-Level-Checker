@@ -38,7 +38,7 @@ export default function Hero() {
   const handleSignupOpen = () => setOpenSignup(prev => !prev);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gradient-to-r from-gray-900 to-gray-700 relative md:pt-14">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gradient-to-r from-gray-900 to-gray-700 relative pt-20 md:pt-14">
       
       {/* Logout button */}
       {signed && (
