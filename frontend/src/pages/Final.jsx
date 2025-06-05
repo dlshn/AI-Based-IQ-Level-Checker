@@ -11,7 +11,6 @@ export default function ResultPage() {
     localStorage.removeItem("photoURL");
     localStorage.removeItem("displayName");
     localStorage.removeItem("email");
-    window.location.reload();
     navigate("/");
   };
 
