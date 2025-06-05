@@ -1,5 +1,4 @@
 // GoogleLoginButton.jsx
-import React from "react";
 import { auth, provider, signInWithPopup } from "../../app/firebase";
 
 export default function GoogleLoginButton({ onSuccess }) {
@@ -8,8 +7,6 @@ export default function GoogleLoginButton({ onSuccess }) {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Optional: Send user data to your backend
-      console.log("Google User:", user);
       onSuccess && onSuccess(user); // pass user info to parent
     } catch (error) {
       console.error("Google Sign-In Error:", error);

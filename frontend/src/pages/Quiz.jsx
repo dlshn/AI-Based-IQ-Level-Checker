@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 
 
 export default function Quiz() {
@@ -13,8 +13,9 @@ export default function Quiz() {
   const [timeLeft, setTimeLeft] = useState(180); 
   const [timeUp, setTimeUp] = useState(false);
   const navigate = useNavigate();
-  const { age } = useParams();
   const fetched = useRef(false);
+  const location = useLocation();
+  const { age, country } = location.state || {};
 
   // Fetch quiz questions
   useEffect(() => {
@@ -25,8 +26,8 @@ export default function Quiz() {
       try {
         const token = localStorage.getItem('token');
         const res = await axios.post(
-          `http://localhost:5000/api/quiz/start/${age}`,
-          {},
+          `http://localhost:5000/api/quiz/start/`,
+          {age, country},
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setQuestions(res.data.questions);
@@ -136,7 +137,7 @@ export default function Quiz() {
               {/* Questions */}
               {questions.map((q, idx) => (
                 <div key={idx} className="mb-6 p-4 bg-white rounded-lg shadow text-gray-900">
-                  <p className="font-semibold text-base md:text-lg  mb-2">{idx + 1}. {q.question}</p>
+                  <p className="font-semibold text-base md:text-lg  mb-2 font-sans md:font-serif">{idx + 1}. {q.question}</p>
                   <div className="space-y-2">
                     {q.choices.map((choice, choiceIdx) => (
                       <label

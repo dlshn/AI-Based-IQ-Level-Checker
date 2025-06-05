@@ -5,7 +5,7 @@ import { generateGeminiInstruction } from "../utils/getInstructions.js";
 export const startQuiz = async (req, res) => {
   try {
     const userEmail = req.user.email;
-    const age = req.params.age;
+    const { age, country } = req.body;
     if (!age || isNaN(age)) {
       return res.status(400).json({ msg: "Valid age is required." });
     }
@@ -13,7 +13,7 @@ export const startQuiz = async (req, res) => {
       return res.status(401).json({ msg: "User not authenticated" });
     }
 
-    const questions = await generateIQQuestions(age);
+    const questions = await generateIQQuestions(age, country);
 
     const quiz = new Quiz({ email:userEmail, questions });
     await quiz.save();
@@ -64,3 +64,22 @@ export const getInstructions = async (req, res) => {
     res.status(500).json({ msg: "Failed to fetch instruction", error: err.message });
   }
 };
+
+// controllers/quizController.js 
+
+export const getQuizHistory = async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const history = await Quiz.find({ email })
+      .select('email score createdAt') // Only include these fields
+      .sort({ createdAt: -1 });
+    res.status(200).json(history);
+    
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch quiz history' });
+
+  }
+};
+
+

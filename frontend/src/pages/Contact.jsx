@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
+import { Link } from 'react-router-dom';
 
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -29,13 +30,7 @@ const Contact = () => {
     setSent(false);
 
     try {
-      const res = await emailjs.send(
-        serviceId,
-        templateId,
-        formData,
-        userId
-      );
-
+      const res = await emailjs.send(serviceId, templateId, formData, userId);
       console.log(res.text);
       setSent(true);
       setFormData({ from_name: '', from_email: '', subject: '', message: '' });
@@ -46,11 +41,27 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 to-gray-700 px-6 py-12">
-      <div className="bg-white rounded-xl shadow-lg p-8 max-w-lg w-full">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Contact Us</h2>
+    <div className="min-h-screen relative flex items-center justify-center bg-gradient-to-r from-gray-900 to-gray-700 px-6 py-12">
 
-        {error && <p className="text-red-600 font-medium mb-4">❌ {error}</p>}
+      {/* Back to Home Button in Top Left */}
+      <div className="absolute top-6 left-6">
+        <Link
+          to="/"
+          className="bg-lime-500 hover:bg-lime-600 text-white font-semibold px-4 py-2 rounded-md shadow transition duration-200 text-sm sm:text-base"
+        >
+          ⬅ Start Test
+        </Link>
+      </div>
+
+      {/* Contact Form Card */}
+      <div className="bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full mt-8 sm:mt-0">
+        <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">Contact Us</h2>
+        <p className="text-gray-600 text-center mb-6">
+          Send us your <span className="text-lime-600 font-semibold">feedback</span>, report <span className="text-lime-600 font-semibold">issues</span>, or just say <span className="text-lime-600 font-semibold">hello</span>.
+        </p>
+
+        {error && <p className="text-red-600 font-medium mb-4 text-center">❌ {error}</p>}
+        {sent && <p className="text-green-600 font-medium mb-4 text-center">✅ Message sent successfully!</p>}
 
         <form onSubmit={handleSend} className="space-y-4">
           <input
@@ -86,7 +97,7 @@ const Contact = () => {
             name="message"
             value={formData.message}
             onChange={handleChange}
-            placeholder="Your Message, Feedback, etc."
+            placeholder="Your Message, Feedback, or Problem"
             rows="4"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-lime-400"
             required
@@ -94,7 +105,7 @@ const Contact = () => {
 
           <button
             type="submit"
-            className="w-full bg-lime-400 hover:bg-lime-700 text-white font-medium py-2 rounded-md transition-all duration-200"
+            className="w-full bg-lime-500 hover:bg-lime-600 text-white font-semibold py-2 rounded-md transition duration-200"
           >
             Send Message
           </button>
