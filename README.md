@@ -6,6 +6,12 @@ After completing the quiz, users receive **AI-generated improvement tips** based
 
 ---
 
+## 🌐 Live Demo
+
+👉 [Try it now!](https://ai-based-iq-level-checker.vercel.app/)
+
+---
+
 ## 🚀 Features
 
 - 🔐 **Google Authentication (Firebase)** – Secure login using Google accounts.
@@ -33,5 +39,3 @@ After completing the quiz, users receive **AI-generated improvement tips** based
 - MongoDB (with Mongoose)
 - Google Gemini API (for question & feedback generation)
 - JWT (JSON Web Token)
-
----
