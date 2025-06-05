@@ -20,6 +20,9 @@ export function SignInModal({ open, handleOpen }) {
       const res = await axios.post("http://localhost:5000/api/auth/signin", formData);
       const token = res.data.token;
       localStorage.setItem("token", token);
+      const email = res.data.user.email;
+      localStorage.setItem("email", email );
+
       handleOpen(false);
     } catch (err) {
       console.log(err);
@@ -99,13 +102,15 @@ export function SignInModal({ open, handleOpen }) {
           >
             Sign In
           </button>
+          <hr />or <hr />
           <GoogleLoginButton onSuccess={(user) => {
             // Optionally store token, navigate, or show welcome
+            console.log("Signed in as:", user);
             localStorage.setItem("token", user.accessToken);
             localStorage.setItem("photoURL", user.photoURL); // ✅ Save profile picture URL
             localStorage.setItem("displayName", user.displayName); // Optional: Save name too // Optional
+            localStorage.setItem("email", user.email)
             window.location.reload();
-            console.log("Signed in as:", user.displayName);
             if(user){
               handleOpen(false)
             }

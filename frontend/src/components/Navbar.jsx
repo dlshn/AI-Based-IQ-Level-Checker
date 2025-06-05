@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import {Link} from "react-router-dom";
+import logo from "../assets/logo.png";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +15,11 @@ export default function Navbar() {
   return (
     <nav className="bg-slate-900 text-white px-6 py-4 shadow-md">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-12">
-        <div className="text-xl font-bold">IQ Insight</div>
+        <div className="flex items-center gap-5">
+          <img src={logo} alt="Logo" className="h-10 w-auto rounded-full border border-lime-400" />
+          <Link to="/"><div className="text-xl font-bold font-serif">IQ Insight</div></Link>
+        </div>
+
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-8 items-center">
@@ -22,7 +28,7 @@ export default function Navbar() {
           <li><a href="/service" className="hover:text-gray-300">Services</a></li>
           <li><a href="/contact" className="hover:text-gray-300">Contact</a></li>
           {photoURL && (
-            <li>
+            <li className="md:px-12">
               <img
                 src={photoURL}
                 alt="Profile"
@@ -46,7 +52,7 @@ export default function Navbar() {
           <li><a href="/service" className="block hover:text-gray-300">Services</a></li>
           <li><a href="/contact" className="block hover:text-gray-300">Contact</a></li>
           {photoURL && (
-            <li className="flex justify-center">
+            <li className="flex justify-center mx-10">
               <img
                 src={photoURL}
                 alt="Profile"

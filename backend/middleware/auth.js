@@ -22,7 +22,7 @@ export const verifyAuth = async (req, res, next) => {
       const decoded = await admin.auth().verifyIdToken(token); 
       req.user = decoded;
       req.authType = "google";
-      console.log(req.user); //************ */
+
       return next();
     } catch (e) {
       return res.status(403).json({ msg: "Invalid or expired token." });

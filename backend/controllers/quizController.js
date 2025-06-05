@@ -64,3 +64,22 @@ export const getInstructions = async (req, res) => {
     res.status(500).json({ msg: "Failed to fetch instruction", error: err.message });
   }
 };
+
+// controllers/quizController.js 
+
+export const getQuizHistory = async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const history = await Quiz.find({ email })
+      .select('email score createdAt') // Only include these fields
+      .sort({ createdAt: -1 });
+    res.status(200).json(history);
+    
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch quiz history' });
+
+  }
+};
+
+

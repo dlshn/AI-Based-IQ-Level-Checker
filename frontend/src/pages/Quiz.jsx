@@ -137,7 +137,7 @@ export default function Quiz() {
               {/* Questions */}
               {questions.map((q, idx) => (
                 <div key={idx} className="mb-6 p-4 bg-white rounded-lg shadow text-gray-900">
-                  <p className="font-semibold text-base md:text-lg  mb-2">{idx + 1}. {q.question}</p>
+                  <p className="font-semibold text-base md:text-lg  mb-2 font-sans md:font-serif">{idx + 1}. {q.question}</p>
                   <div className="space-y-2">
                     {q.choices.map((choice, choiceIdx) => (
                       <label
