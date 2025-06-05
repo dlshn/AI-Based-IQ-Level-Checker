@@ -4,6 +4,7 @@ import axios from "axios";
 export function SignupModal({ open, handleOpen }) {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [msg, setMsg] = useState("");
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(()=>{
     setMsg("");
@@ -18,7 +19,7 @@ export function SignupModal({ open, handleOpen }) {
     e.preventDefault();
     setMsg("");
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/signup", formData);
+      const res = await axios.post(`${baseURL}/api/auth/signup`, formData);
       setMsg("Signup successful! You can now sign in.");
       setFormData({ name: "", email: "", password: "" });
       handleOpen(false);

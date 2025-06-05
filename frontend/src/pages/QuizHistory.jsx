@@ -3,11 +3,12 @@ import axios from 'axios';
 
 const QuizHistoryModal = ({ userEmail, onClose }) => {
   const [history, setHistory] = useState([]);
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/quiz/history/${userEmail}`);
+        const res = await axios.get(`${baseURL}/api/quiz/history/${userEmail}`);
         console.log("Received history:", res.data);
         setHistory(res.data);
       } catch (err) {

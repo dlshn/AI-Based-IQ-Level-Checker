@@ -13,6 +13,7 @@ export default function Hero() {
   const [openSignup, setOpenSignup] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const email = localStorage.getItem('email');
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     const token = localStorage.getItem("token");

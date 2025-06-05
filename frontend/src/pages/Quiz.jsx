@@ -16,6 +16,7 @@ export default function Quiz() {
   const fetched = useRef(false);
   const location = useLocation();
   const { age, country } = location.state || {};
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
 
   // Fetch quiz questions
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function Quiz() {
       try {
         const token = localStorage.getItem('token');
         const res = await axios.post(
-          `http://localhost:5000/api/quiz/start/`,
+          `${baseURL}/api/quiz/start/`,
           {age, country},
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -77,7 +78,7 @@ export default function Quiz() {
         .map(key => answers[key]);
 
       const res = await axios.post(
-        `http://localhost:5000/api/quiz/submit/${quizId}`,
+        `${baseURL}/api/quiz/submit/${quizId}`,
         { providedAnswers: answersArray },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -92,7 +93,7 @@ export default function Quiz() {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.post(
-        `http://localhost:5000/api/quiz/instruction/${score}`,
+        `${baseURL}/api/quiz/instruction/${score}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

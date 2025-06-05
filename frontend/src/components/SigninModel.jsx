@@ -7,6 +7,7 @@ export function SignInModal({ open, handleOpen }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 
   const handleChange = (e) => {
@@ -17,7 +18,7 @@ export function SignInModal({ open, handleOpen }) {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/signin", formData);
+      const res = await axios.post(`${baseURL}/api/auth/signin`, formData);
       const token = res.data.token;
       localStorage.setItem("token", token);
       const email = res.data.user.email;
